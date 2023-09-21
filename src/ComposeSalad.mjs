@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Salad from './Salad.mjs';
 
 function ComposeSalad(props) {
   const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
@@ -6,14 +7,12 @@ function ComposeSalad(props) {
   const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
   const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
   const [foundation, setFoundation] = useState('Pasta');
-  const [extra, setExtra] = useState({});
+  const [extra, setExtra] = useState({ Bacon: true });
   const [protein, setProtein] = useState('Kycklingfilé')
   const [dressing, setDressing] = useState('Ceasardressing')
 
   function createSallad(){
-    let sallad = new Array();
-    sallad.push(foundation, protein, dressing, extra)
-    return sallad;
+    let sallad = new Salad();
   }
 
 

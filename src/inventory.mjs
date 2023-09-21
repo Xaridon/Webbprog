@@ -15,6 +15,7 @@ const inventory = {
 
   Avocado: { price: 10, extra: true, vegan: true },
   Bacon: { price: 10, extra: true },
+  Japaleno: {price: 5, extra: true},
   'Böngroddar': { price: 5, extra: true, vegan: true },
   'Cashewnötter': { price: 5, extra: true, vegan: true },
   'Chèvreost': { price: 15, extra: true, lactose: true },
