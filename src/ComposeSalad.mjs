@@ -12,23 +12,23 @@ function ComposeSalad(props) {
   const [protein, setProtein] = useState('Kycklingfilé')
   const [dressing, setDressing] = useState('Ceasardressing')
 
-  const sallads = Array[0]
-
   function handleSubmit(e){
-    let sallad = new Salad()
+    e.preventDefault()
+    let newSalad = new Salad()
       .add(foundation, inventory[foundation])
       .add(protein, inventory[protein])
       .add(dressing, inventory[dressing])
       
-      Object.keys(extra).forEach(key => (sallad.add(key, inventory[key])))
+      Object.keys(extra).forEach(key => newSalad.add(key, inventory[key]))
 
-    sallads.push(sallad);
-    
+      let allSalads = [...props.salad, newSalad]
+    props.saladSubmit(allSalads);
+      
+
     setFoundation('Sallad')
     setExtra({})
     setProtein('Kycklingfilé')
     setDressing('Ceasardressing')
-    e.preventDefault();
   }
 
 
@@ -61,7 +61,7 @@ function ComposeSalad(props) {
 
   function buildOptions(name) {
     return(
-      <option value={name}>{name} {inventory[name].price}kr</option>
+      <option value={name}>{name} - {inventory[name].price}kr</option>
       )
       
   }
@@ -69,7 +69,7 @@ function ComposeSalad(props) {
   return (
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
-      <form>
+      <form  onSubmit={handleSubmit}>
         <h2>Välj Bas</h2>
         <select name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)}>
         {foundations.map(name => buildOptions(name))}
@@ -84,10 +84,9 @@ function ComposeSalad(props) {
         </select>
         <h2>Välj Extra</h2>
         {extras.map(name => buildList(name))}
-        <button type='submit' className="btn" onSubmit={e => handleSubmit(e)}>Lägg till i korgen</button>
+        <button type='submit' className="btn">Lägg till i korgen</button>
         </form>
       </div>
-      {foundations}
     </div>
   );
 }

@@ -3,10 +3,19 @@ import 'bootstrap/dist/css/bootstrap.css';
 import inventory from './inventory.mjs';
 import ComposeSalad from './ComposeSalad.mjs'
 import ViewOrder from './ViewOrder.mjs'
+import React, {useState} from 'react';
 
 function App() {
 
-  const shoppingCart = Array[ComposeSalad.sallads]
+  const [salads, setSalads] = useState([]);
+
+
+  function removeSalads(salad, name){
+    const current = {...salad};
+      delete current[name];
+      return current;
+  }
+
   return (
     <div className="container py-4">
       <header className="pb-3 mb-4 border-bottom">
@@ -14,12 +23,13 @@ function App() {
       </header>
 
       <div className="continer col-12">
+      <div className="row h-200 p-5 bg-light border rounded-3">
+        <h2>Din beställning</h2>
+        <ViewOrder shoppingCart={salads} saladRemove={removeSalads}/>
+      </div>
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
-          <ComposeSalad inventory={inventory} />
-        </div>
-        <div>
-          <ViewOrder shoppingCart={shoppingCart}/>
+          <ComposeSalad inventory={inventory} saladSubmit={setSalads} salad={salads} />
         </div>
       </div>
 
