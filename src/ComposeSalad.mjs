@@ -1,18 +1,34 @@
 import { useState } from 'react';
 import Salad from './Salad.mjs';
+import inventory from './inventory.mjs';
 
 function ComposeSalad(props) {
   const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
   const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
   const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
   const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
-  const [foundation, setFoundation] = useState('Pasta');
-  const [extra, setExtra] = useState({ Bacon: true });
+  const [foundation, setFoundation] = useState('Sallad');
+  const [extra, setExtra] = useState({});
   const [protein, setProtein] = useState('Kycklingfilé')
   const [dressing, setDressing] = useState('Ceasardressing')
 
-  function createSallad(){
-    let sallad = new Salad();
+  const sallads = Array[0]
+
+  function handleSubmit(e){
+    let sallad = new Salad()
+      .add(foundation, inventory[foundation])
+      .add(protein, inventory[protein])
+      .add(dressing, inventory[dressing])
+      
+      Object.keys(extra).forEach(key => (sallad.add(key, inventory[key])))
+
+    sallads.push(sallad);
+    
+    setFoundation('Sallad')
+    setExtra({})
+    setProtein('Kycklingfilé')
+    setDressing('Ceasardressing')
+    e.preventDefault();
   }
 
 
@@ -32,22 +48,22 @@ function ComposeSalad(props) {
   
 
   function buildList(name) {
-    {return(
+    return(
       <div>
         <label>
           <input type='checkbox' name={name} checked={extra[name]} onChange={e => (extraEventHandler(e, name))}></input>
-          {name}
+          {name} {inventory[name].price}kr
         </label>
       </div>
       )
-      }
+      
   }
 
   function buildOptions(name) {
-    {return(
-      <option value={name}>{name}</option>
+    return(
+      <option value={name}>{name} {inventory[name].price}kr</option>
       )
-      }
+      
   }
 
   return (
@@ -68,10 +84,13 @@ function ComposeSalad(props) {
         </select>
         <h2>Välj Extra</h2>
         {extras.map(name => buildList(name))}
-        <button type='submit' className="btn">Lägg till i korgen</button>
+        <button type='submit' className="btn" onSubmit={e => handleSubmit(e)}>Lägg till i korgen</button>
         </form>
       </div>
+      {foundations}
     </div>
   );
 }
+
+
 export default ComposeSalad;

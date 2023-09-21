@@ -1,7 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import inventory from './inventory.mjs';
-
-
 
 class Salad {
     static #instanceCounter = 0;
@@ -10,7 +7,7 @@ class Salad {
       this.uuid = uuidv4();
       this.ingredients = {};
       if (arguments.length > 0) {
-        this.ingredients = {...salad.ingredients}; //...tar bort [], lägger till ingridieserna
+        this.ingredients = {...salad.ingredients};
       }
     }
     add(name, properties) { 
@@ -37,10 +34,8 @@ class Salad {
           const parsedSalad = JSON.parse(json);
   
           if (Array.isArray(parsedSalad)) {
-            // If parsedSalad is an array, return an array of Salad objects
             return parsedSalad.map(saladData => new Salad(saladData));
           } else if (typeof parsedSalad === 'object') {
-            // If parsedSalad is an object, return a single Salad object
             return new Salad(parsedSalad);
           } else {
             throw new Error('Invalid JSON data');

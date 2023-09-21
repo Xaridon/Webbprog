@@ -2,8 +2,11 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import inventory from './inventory.mjs';
 import ComposeSalad from './ComposeSalad.mjs'
+import ViewOrder from './ViewOrder.mjs'
 
 function App() {
+
+  const shoppingCart = Array[ComposeSalad.sallads]
   return (
     <div className="container py-4">
       <header className="pb-3 mb-4 border-bottom">
@@ -14,6 +17,9 @@ function App() {
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>
           <ComposeSalad inventory={inventory} />
+        </div>
+        <div>
+          <ViewOrder shoppingCart={shoppingCart}/>
         </div>
       </div>
 
