@@ -9,13 +9,6 @@ function App() {
 
   const [salads, setSalads] = useState([]);
 
-
-  function removeSalads(salad, name){
-    const current = {...salad};
-      delete current[name];
-      return current;
-  }
-
   return (
     <div className="container py-4">
       <header className="pb-3 mb-4 border-bottom">
@@ -25,7 +18,7 @@ function App() {
       <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
         <h2>Din beställning</h2>
-        <ViewOrder shoppingCart={salads} saladRemove={removeSalads}/>
+        <ViewOrder shoppingCart={salads} setSalads={setSalads}/>
       </div>
         <div className="row h-200 p-5 bg-light border rounded-3">
           <h2>Välj innehållet i din sallad</h2>

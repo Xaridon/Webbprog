@@ -2,6 +2,13 @@ import React from 'react';
 
 
 function ViewOrder(props){
+
+    function saladRemove(e, name){
+        let newSaladArray = props.shoppingCart.filter((word) => word !== name)
+        props.setSalads(newSaladArray);
+    }
+
+
     let bigPrice = 0;
     return(
         <>
@@ -11,8 +18,9 @@ function ViewOrder(props){
             return(
             <div key={salad.id}>
                 <p>
-                   {Object.keys(salad.ingredients).join(', ')} {salad.getPrice()}kr
+                   {Object.keys(salad.ingredients).join(', ')} {salad.getPrice()}kr   <button className="btn btn-danger" onClick={e => saladRemove(e, salad)}>X</button>
                 </p>
+               
             </div>
         )
         })}

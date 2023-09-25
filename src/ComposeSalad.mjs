@@ -21,8 +21,8 @@ function ComposeSalad(props) {
       
       Object.keys(extra).forEach(key => newSalad.add(key, inventory[key]))
 
-      let allSalads = [...props.salad, newSalad]
-    props.saladSubmit(allSalads);
+    let newSaladArray = [...props.salad, newSalad]
+    props.saladSubmit(newSaladArray);
       
 
     setFoundation('Sallad')
@@ -84,7 +84,8 @@ function ComposeSalad(props) {
         </select>
         <h2>Välj Extra</h2>
         {extras.map(name => buildList(name))}
-        <button type='submit' className="btn">Lägg till i korgen</button>
+        <br></br>
+        <button type='submit' className="btn btn-success">Lägg till i korgen</button>
         </form>
       </div>
     </div>
