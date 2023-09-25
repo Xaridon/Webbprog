@@ -7,10 +7,10 @@ function ComposeSalad(props) {
   const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
   const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
   const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
-  const [foundation, setFoundation] = useState('Sallad');
+  const [foundation, setFoundation] = useState('');
   const [extra, setExtra] = useState({});
-  const [protein, setProtein] = useState('Kycklingfilé')
-  const [dressing, setDressing] = useState('Ceasardressing')
+  const [protein, setProtein] = useState('')
+  const [dressing, setDressing] = useState('')
 
   function handleSubmit(e){
     e.preventDefault()
@@ -25,10 +25,10 @@ function ComposeSalad(props) {
     props.saladSubmit(newSaladArray);
       
 
-    setFoundation('Sallad')
+    setFoundation('')
     setExtra({})
-    setProtein('Kycklingfilé')
-    setDressing('Ceasardressing')
+    setProtein('')
+    setDressing('')
   }
 
 
@@ -71,15 +71,18 @@ function ComposeSalad(props) {
       <div className="row h-200 p-5 bg-light border rounded-3">
       <form  onSubmit={handleSubmit}>
         <h2>Välj Bas</h2>
-        <select name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)}>
+        <select name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)} required>
+          <option value='' disabled>Lägg till bas</option>
         {foundations.map(name => buildOptions(name))}
         </select>
         <h2>Välj Protein</h2>
         <select name='protein' value={protein} onChange={e => setProtein(e.target.value)}>
+        <option value='' disabled>Lägg till protein</option>
         {proteins.map(name => buildOptions(name))}
         </select>
         <h2>Välj Dressing</h2>
         <select name='dressing' value={dressing} onChange={e => setDressing(e.target.value)}>
+        <option value='' disabled>Lägg till dressing</option>
         {dressings.map(name => buildOptions(name))}
         </select>
         <h2>Välj Extra</h2>
