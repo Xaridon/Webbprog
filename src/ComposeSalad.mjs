@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import Salad from './Salad.mjs';
 import inventory from './inventory.mjs';
+import { useNavigate ,useOutletContext } from "react-router-dom";
 
-function ComposeSalad(props) {
+
+function ComposeSalad() {
+  const props = useOutletContext();
+  const navigate = useNavigate();
   const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
   const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
   const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
@@ -25,15 +29,16 @@ function ComposeSalad(props) {
       
       Object.keys(extra).forEach(key => newSalad.add(key, inventory[key]))
 
-    let newSaladArray = [...props.salad, newSalad]
-    props.saladSubmit(newSaladArray);
+    let newSaladArray = [...props.shoppingCart, newSalad]
+    props.setSalads(newSaladArray);
       
 
     setFoundation('')
     setExtra({})
     setProtein('')
-    setDressing('')
+    setDressing('');
     e.target.classList.remove("was-validated");
+    navigate("/view-order")
   }
 
 
@@ -72,6 +77,8 @@ function ComposeSalad(props) {
   }
 
   return (
+    <div className="row h-200 p-5 bg-light border rounded-3">
+          <h2>Välj innehållet i din sallad</h2>
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
       <form  onSubmit={handleSubmit} noValidate>
@@ -99,6 +106,7 @@ function ComposeSalad(props) {
         <button type='submit' className="btn btn-success">Lägg till i korgen</button>
         </form>
       </div>
+    </div>
     </div>
   );
 }

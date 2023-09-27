@@ -1,8 +1,9 @@
 import React from 'react';
+import { useOutletContext } from "react-router-dom";
 
 
-function ViewOrder(props){
-
+function ViewOrder(){
+    const props = useOutletContext();
     function saladRemove(e, name){
         let newSaladArray = props.shoppingCart.filter((word) => word !== name)
         props.setSalads(newSaladArray);
@@ -12,7 +13,10 @@ function ViewOrder(props){
     let bigPrice = 0;
     return(
         <>
+        <div className="continer col-12">
         <div className="row h-200 p-5 bg-light border rounded-3">
+        <h2>Din beställning</h2>
+
         {props.shoppingCart.map((salad) => {
             bigPrice += salad.getPrice();
             return(
@@ -25,6 +29,7 @@ function ViewOrder(props){
         )
         })}
         <h4>Total: {bigPrice}kr</h4>
+        </div>
         </div>
         </>
     );
