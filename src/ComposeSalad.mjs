@@ -14,6 +14,10 @@ function ComposeSalad(props) {
 
   function handleSubmit(e){
     e.preventDefault()
+    if(!e.target.checkValidity()){
+      e.target.classList.add("was-validated");
+      return;
+    }
     let newSalad = new Salad()
       .add(foundation, inventory[foundation])
       .add(protein, inventory[protein])
@@ -29,6 +33,7 @@ function ComposeSalad(props) {
     setExtra({})
     setProtein('')
     setDressing('')
+    e.target.classList.remove("was-validated");
   }
 
 
@@ -49,7 +54,7 @@ function ComposeSalad(props) {
 
   function buildList(name) {
     return(
-      <div>
+      <div class="form-check form-check-inline">
         <label>
           <input type='checkbox' name={name} checked={extra[name]} onChange={e => (extraEventHandler(e, name))}></input>
           {name} {inventory[name].price}kr
@@ -69,22 +74,25 @@ function ComposeSalad(props) {
   return (
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
-      <form  onSubmit={handleSubmit}>
+      <form  onSubmit={handleSubmit} noValidate>
         <h2>Välj Bas</h2>
-        <select name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)} required>
+        <select className="form-select form-control" id="validationCustom01" name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)} required>
           <option value='' disabled>Lägg till bas</option>
         {foundations.map(name => buildOptions(name))}
         </select>
+        <div class="invalid-feedback">Please choose a foundation</div>
         <h2>Välj Protein</h2>
-        <select name='protein' value={protein} onChange={e => setProtein(e.target.value)}>
+        <select className="form-select form-control" id="validationCustom02" name='protein' value={protein} onChange={e => setProtein(e.target.value)} required>
         <option value='' disabled>Lägg till protein</option>
         {proteins.map(name => buildOptions(name))}
         </select>
+        <div class="invalid-feedback">Please choose a protein</div>
         <h2>Välj Dressing</h2>
-        <select name='dressing' value={dressing} onChange={e => setDressing(e.target.value)}>
+        <select className="form-select form-control" id="validationCustom03" name='dressing' value={dressing} onChange={e => setDressing(e.target.value)} required>
         <option value='' disabled>Lägg till dressing</option>
         {dressings.map(name => buildOptions(name))}
         </select>
+        <div class="invalid-feedback">Please choose a dressing</div>
         <h2>Välj Extra</h2>
         {extras.map(name => buildList(name))}
         <br></br>
