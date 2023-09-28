@@ -40,6 +40,7 @@ function ComposeSalad() {
     e.target.classList.remove("was-validated");
     navigate("/view-order")
   }
+  
 
 
 
@@ -81,26 +82,32 @@ function ComposeSalad() {
           <h2>Välj innehållet i din sallad</h2>
     <div className="continer col-12">
       <div className="row h-200 p-5 bg-light border rounded-3">
-      <form  onSubmit={handleSubmit} noValidate>
+      <form  onSubmit={handleSubmit} className='g-3 needs-validation' noValidate>
         <h2>Välj Bas</h2>
+        <div>
         <select className="form-select form-control" id="validationCustom01" name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)} required>
           <option value='' disabled>Lägg till bas</option>
         {foundations.map(name => buildOptions(name))}
         </select>
         <div class="invalid-feedback">Please choose a foundation</div>
+        </div>
         <h2>Välj Protein</h2>
+        <div>
         <select className="form-select form-control" id="validationCustom02" name='protein' value={protein} onChange={e => setProtein(e.target.value)} required>
-        <option value='' disabled>Lägg till protein</option>
+          <option value='' disabled>Lägg till protein</option>
         {proteins.map(name => buildOptions(name))}
         </select>
         <div class="invalid-feedback">Please choose a protein</div>
+        </div>
         <h2>Välj Dressing</h2>
+        <div>
         <select className="form-select form-control" id="validationCustom03" name='dressing' value={dressing} onChange={e => setDressing(e.target.value)} required>
-        <option value='' disabled>Lägg till dressing</option>
+          <option value='' disabled>Lägg till dressing</option>
         {dressings.map(name => buildOptions(name))}
         </select>
         <div class="invalid-feedback">Please choose a dressing</div>
-        <h2>Välj Extra</h2>
+        </div>
+        <h2>Välj Extra</h2>       
         {extras.map(name => buildList(name))}
         <br></br>
         <button type='submit' className="btn btn-success">Lägg till i korgen</button>

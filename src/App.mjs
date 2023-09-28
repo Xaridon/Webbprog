@@ -1,7 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import inventory from './inventory.mjs';
-import NavBar from './NavBar.mjs';
 import React, {useState} from 'react';
 import { NavLink, Outlet } from "react-router-dom";
 
