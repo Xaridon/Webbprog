@@ -1,9 +1,10 @@
-import { createBrowserRouter, useRouteError, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import App from './App.mjs';
 import ComposeSalad from "./ComposeSalad.mjs";
 import ViewOrder from "./ViewOrder.mjs";
 import HomePage from "./HomePage.mjs";
 import PageNotFound from "./PageNotFound.mjs";
+import Confirm from "./Confirm.mjs";
 
 const router = createBrowserRouter([
   {
@@ -20,7 +21,13 @@ const router = createBrowserRouter([
       },
       {
         path: "/view-order",
-        element: <ViewOrder/>
+        element: <ViewOrder />,
+        children: [
+          {
+            path: "/view-order/confirm/:uuid",
+            element: <Confirm />
+          }
+        ]
       },
       { /*
         path: "confirm/id:",

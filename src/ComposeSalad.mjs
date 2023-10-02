@@ -30,15 +30,14 @@ function ComposeSalad() {
       Object.keys(extra).forEach(key => newSalad.add(key, inventory[key]))
 
     let newSaladArray = [...props.shoppingCart, newSalad]
-    props.setSalads(newSaladArray);
-      
+    props.setSalads(newSaladArray);      
 
     setFoundation('')
     setExtra({})
     setProtein('')
     setDressing('');
     e.target.classList.remove("was-validated");
-    navigate("/view-order")
+    navigate('/view-order/confirm/'+ newSalad.uuid)
   }
   
 
