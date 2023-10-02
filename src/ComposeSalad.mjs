@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import Salad from './Salad.mjs';
-import inventory from './inventory.mjs';
-import { useNavigate ,useOutletContext } from "react-router-dom";
+import { useNavigate ,useOutletContext, useLoaderData } from "react-router-dom";
 
 
 function ComposeSalad() {
@@ -15,6 +14,9 @@ function ComposeSalad() {
   const [extra, setExtra] = useState({});
   const [protein, setProtein] = useState('')
   const [dressing, setDressing] = useState('')
+  const inventory = useLoaderData();
+
+  console.log(inventory)
 
   function handleSubmit(e){
     e.preventDefault()
@@ -62,7 +64,7 @@ function ComposeSalad() {
       <div class="form-check form-check-inline">
         <label>
           <input type='checkbox' name={name} checked={extra[name]} onChange={e => (extraEventHandler(e, name))}></input>
-          {name} {inventory[name].price}kr
+          {name} {/*inventory[name].price*/}kr
         </label>
       </div>
       )
@@ -71,7 +73,7 @@ function ComposeSalad() {
 
   function buildOptions(name) {
     return(
-      <option value={name}>{name} - {inventory[name].price}kr</option>
+      <option value={name}>{name} - {/*inventory[name].price*/}kr</option>
       )
       
   }
@@ -116,6 +118,8 @@ function ComposeSalad() {
     </div>
   );
 }
+
+
 
 
 export default ComposeSalad;
