@@ -22,6 +22,10 @@ const router = createBrowserRouter([
         path: "/view-order",
         element: <ViewOrder/>
       },
+      { /*
+        path: "confirm/id:",
+        element: element=<Contact />
+      */}, 
       {
         path: "/404",
         element: <PageNotFound/>
