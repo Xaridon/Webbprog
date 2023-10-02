@@ -1,5 +1,6 @@
 import React from 'react';
 import { useOutletContext } from "react-router-dom";
+import Confirm from './Confirm.mjs';
 
 
 function ViewOrder(){
@@ -15,6 +16,7 @@ function ViewOrder(){
         <>
         <div className="continer col-12">
         <div className="row h-200 p-5 bg-light border rounded-3">
+            <Confirm />
         <h2>Din beställning</h2>
 
         {props.shoppingCart.map((salad) => {
