@@ -1,22 +1,32 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import inventory from './inventory.mjs';
 import React, {useState} from 'react';
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, useNavigation } from "react-router-dom";
 
 
 
 function App() {
 
   const [shoppingCart, setSalads] = useState([]);
+  const navigation = useNavigation();
    
 
   return (
-    <div className="container py-4">
+    <><div className="container py-4">
       <Header />
       <NavBar />
-      <Outlet context={{shoppingCart, setSalads}}/>
+      {navigation.state === 'loading' ? (
+          <BootstrapSpinner /> 
+        ) : (
+          <Outlet context={{ shoppingCart, inventory, setSalads }}/>
+        )}
       <Footer />
-    </div>
+    </div></>
+        
+
+
+
   );
 }
 
@@ -55,6 +65,15 @@ function Footer(props) { return (
     EDAF90 - webprogrammering
   </footer>
 )};
+
+function BootstrapSpinner() {
+  return (
+    <div className="p-3 m-3 d-flex justify-content-center">
+      <div className="spinner-border text-primary" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  )}
 
 
 

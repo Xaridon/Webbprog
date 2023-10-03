@@ -10,8 +10,8 @@ function ViewOrder(){
         props.setSalads(newSaladArray);
     }
 
-
     let bigPrice = 0;
+
     return(
         <>
         <div className="continer col-12">
@@ -30,7 +30,7 @@ function ViewOrder(){
             </div>
         )
         })}
-        <h4>Total: {bigPrice}kr</h4>
+        <h4>Total: {bigPrice}kr</h4>            
         </div>
         </div>
         </>
