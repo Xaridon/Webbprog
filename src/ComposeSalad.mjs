@@ -6,18 +6,16 @@ import { useNavigate ,useOutletContext, useLoaderData } from "react-router-dom";
 function ComposeSalad() {
   const props = useOutletContext();
   const navigate = useNavigate();
-  const extras = Object.keys(props.inventory).filter(name => props.inventory[name].extra);
-  const foundations = Object.keys(props.inventory).filter(name => props.inventory[name].foundation);
-  const proteins = Object.keys(props.inventory).filter(name => props.inventory[name].protein);
-  const dressings = Object.keys(props.inventory).filter(name => props.inventory[name].dressing);
+  const inventory = useLoaderData();
+  const extras = Object.keys(inventory.extras);
+  const foundations = Object.keys(inventory.foundations);
+  const proteins = Object.keys(inventory.proteins);
+  const dressings = Object.keys(inventory.dressings);
   const [foundation, setFoundation] = useState('');
   const [extra, setExtra] = useState({});
   const [protein, setProtein] = useState('')
   const [dressing, setDressing] = useState('')
-  const inventory = useLoaderData();
-
-  console.log(inventory)
-
+  
   function handleSubmit(e){
     e.preventDefault()
     if(!e.target.checkValidity()){
@@ -25,11 +23,11 @@ function ComposeSalad() {
       return;
     }
     let newSalad = new Salad()
-      .add(foundation, inventory[foundation])
-      .add(protein, inventory[protein])
-      .add(dressing, inventory[dressing])
+      .add(foundation, inventory["foundations"][foundation])
+      .add(protein, inventory["proteins"][protein])
+      .add(dressing, inventory["dressings"][dressing])
       
-      Object.keys(extra).forEach(key => newSalad.add(key, inventory[key]))
+      Object.keys(extra).forEach(key => newSalad.add(key, inventory["extras"][key]))
 
     let newSaladArray = [...props.shoppingCart, newSalad]
     props.setSalads(newSaladArray);      
@@ -59,21 +57,21 @@ function ComposeSalad() {
   }
   
 
-  function buildList(name) {
+  function buildList(name, type) {
     return(
       <div class="form-check form-check-inline">
         <label>
           <input type='checkbox' name={name} checked={extra[name]} onChange={e => (extraEventHandler(e, name))}></input>
-          {name} {/*inventory[name].price*/}kr
+          {name} {inventory[type][name].price}kr
         </label>
       </div>
       )
       
   }
 
-  function buildOptions(name) {
+  function buildOptions(name, type) {
     return(
-      <option value={name}>{name} - {/*inventory[name].price*/}kr</option>
+      <option value={name}>{name} - {inventory[type][name].price}kr</option>
       )
       
   }
@@ -88,7 +86,7 @@ function ComposeSalad() {
         <div>
         <select className="form-select form-control" id="validationCustom01" name='foundation' value={foundation} onChange={e => setFoundation(e.target.value)} required>
           <option value='' disabled>Lägg till bas</option>
-        {foundations.map(name => buildOptions(name))}
+        {foundations.map(name => buildOptions(name, "foundations"))}
         </select>
         <div class="invalid-feedback">Please choose a foundation</div>
         </div>
@@ -96,7 +94,7 @@ function ComposeSalad() {
         <div>
         <select className="form-select form-control" id="validationCustom02" name='protein' value={protein} onChange={e => setProtein(e.target.value)} required>
           <option value='' disabled>Lägg till protein</option>
-        {proteins.map(name => buildOptions(name))}
+        {proteins.map(name => buildOptions(name, "proteins"))}
         </select>
         <div class="invalid-feedback">Please choose a protein</div>
         </div>
@@ -104,12 +102,12 @@ function ComposeSalad() {
         <div>
         <select className="form-select form-control" id="validationCustom03" name='dressing' value={dressing} onChange={e => setDressing(e.target.value)} required>
           <option value='' disabled>Lägg till dressing</option>
-        {dressings.map(name => buildOptions(name))}
+        {dressings.map(name => buildOptions(name, "dressings"))}
         </select>
         <div class="invalid-feedback">Please choose a dressing</div>
         </div>
         <h2>Välj Extra</h2>       
-        {extras.map(name => buildList(name))}
+        {extras.map(name => buildList(name, "extras"))}
         <br></br>
         <button type='submit' className="btn btn-success">Lägg till i korgen</button>
         </form>

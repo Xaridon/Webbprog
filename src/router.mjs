@@ -5,6 +5,7 @@ import ViewOrder from "./ViewOrder.mjs";
 import HomePage from "./HomePage.mjs";
 import PageNotFound from "./PageNotFound.mjs";
 import Confirm from "./Confirm.mjs"
+import fetchInventory from "./fetchInventory.mjs";
 
 const router = createBrowserRouter([
   {
@@ -43,40 +44,13 @@ const router = createBrowserRouter([
 ]);
 
 async function inventoryLoader() {
-
-  const response = await fetch("http://localhost:8080/foundations");
-  const foundationNames = await response.json()
-  const foundations = [];
-
-  for (const name of foundationNames) {
-    const response = await fetchIngredient("foundations", name);
-    const data = await response.json();
-    const objectConstructor = {[name] : data}
-    foundations.push(objectConstructor);
+  try {
+    const inventory = await fetchInventory();
+    return inventory
+  } catch (error) {
+    console.error("Problem fetching inventory", error)
   }
 
-  console.log(foundations)
-  return foundations;
-
-  
-  /*const foundations = []
-  foundations.push(fetchIngredient("foundations", "Sallad"))
-  
-  const inventory = await fetchIngredient("foundations", name); //Promise.all([...foundations])
-  await new Promise(resolve => setTimeout(resolve, 500));
-
-  return inventory; */
-}
-
-async function fetchIngredient(type, name) {
-  const response = await fetch(`http://localhost:8080/${type}/${name}`);
-
-  return response;
-
-  /*const inventoryProperties = fetch("http://localhost:8080/"+type+"/"+name);
-
-  const obj = {name : inventoryProperties};
-  return obj; */
 }
 
 export default router

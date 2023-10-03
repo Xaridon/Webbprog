@@ -1,6 +1,5 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import inventory from './inventory.mjs';
 import React, {useState} from 'react';
 import { NavLink, Outlet } from "react-router-dom";
 
@@ -15,7 +14,7 @@ function App() {
     <div className="container py-4">
       <Header />
       <NavBar />
-      <Outlet context={{shoppingCart, inventory, setSalads}}/>
+      <Outlet context={{shoppingCart, setSalads}}/>
       <Footer />
     </div>
   );
