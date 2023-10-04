@@ -16,8 +16,8 @@ async function fetchIngredient(type, ingredient) {
     return safeFetchJson(`http://localhost:8080/${type}/${ingredient}`)
 }
 
-async function fetchType(type, url){
-    return Object.assign({}, ...await Promise.all(url.map(async (x) => {
+async function fetchType(type, arrayOfIngredients){
+    return Object.assign({}, ...await Promise.all(arrayOfIngredients.map(async (x) => {
         return {[x] : await fetchIngredient(type, x)}
     })))
 }

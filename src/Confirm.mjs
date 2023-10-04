@@ -5,7 +5,6 @@ import {useNavigate, useParams, useOutletContext} from "react-router-dom";
 function Confirm() {
     let params = useParams();
     const props = useOutletContext();
-    const navigate = useNavigate();
 
     try {
         const senasteBeställningen = props.shoppingCart.find(obj => {

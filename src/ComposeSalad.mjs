@@ -30,7 +30,11 @@ function ComposeSalad() {
       Object.keys(extra).forEach(key => newSalad.add(key, inventory["extras"][key]))
 
     let newSaladArray = [...props.shoppingCart, newSalad]
-    props.setSalads(newSaladArray);      
+    props.setSalads(newSaladArray);
+
+
+
+    localStorage.setItem("shoppingCart", JSON.stringify(newSaladArray));
 
     setFoundation('')
     setExtra({})

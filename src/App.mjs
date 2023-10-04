@@ -2,13 +2,22 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import React, {useState} from 'react';
 import { NavLink, Outlet } from "react-router-dom";
+import Salad from './Salad.mjs';
+
 
 
 
 function App() {
 
-  const [shoppingCart, setSalads] = useState([]);
+
+
+  const [shoppingCart, setSalads] = useState(load);
    
+  function load (){
+    return Salad.parse(localStorage.getItem("shoppingCart"))
+  }
+
+
 
   return (
     <div className="container py-4">
