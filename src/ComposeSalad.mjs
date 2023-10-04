@@ -113,7 +113,7 @@ function ComposeSalad() {
         <h2>Välj Extra</h2>       
         {extras.map(name => buildList(name, "extras"))}
         <br></br>
-        <button type='submit' className="btn btn-success">Lägg till i korgen</button>
+        <button type='submit' className="mt-3 btn btn-success">Lägg till i korgen</button>
         </form>
       </div>
     </div>

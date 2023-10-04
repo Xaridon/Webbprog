@@ -18,6 +18,7 @@ function ViewOrder(){
 
 
     let bigPrice = 0;
+
     return(
         <>
         <div className="continer col-12">
